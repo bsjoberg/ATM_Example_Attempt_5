@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 public class CheckoutSteps {
 
     private int bananaPrice;
-    private Checkout checkout;
+    private Checkout checkout = new Checkout();
 
     @Given("the price of a {string} is {int}c")
     public void the_price_of_a_is_c(String itemName, Integer priceOfItem) {
@@ -18,7 +18,6 @@ public class CheckoutSteps {
 
     @When("I checkout {int} {string}")
     public void i_checkout(Integer numberOfItems, String itemName) {
-        checkout = new Checkout();
         checkout.add(numberOfItems, bananaPrice);
     }
 
