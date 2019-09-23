@@ -19,7 +19,7 @@ public class CheckoutSteps {
     @When("I checkout {int} {string}")
     public void i_checkout(Integer numberOfItems, String itemName) {
         checkout = new Checkout();
-        checkout.add(itemName, numberOfItems);
+        checkout.add(numberOfItems, bananaPrice);
     }
 
     @Then("the total price is {int}c")

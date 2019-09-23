@@ -1,10 +1,13 @@
 package fun;
 
 public class Checkout {
-    public void add(String itemName, Integer numberOfItems) {
+    private int runningTotal = 0;
+
+    public void add(Integer itemCount, Integer itemPrice) {
+        runningTotal += (itemCount * itemPrice);
     }
 
     public Integer total() {
-        return 40;
+        return runningTotal;
     }
 }
