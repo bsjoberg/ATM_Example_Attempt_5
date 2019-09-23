@@ -18,3 +18,10 @@ Scenario:​ Two bananas scanned separately​​
     When I checkout 1 "banana"
     And I checkout 1 "banana"
     Then the total price is 80c
+
+Scenario: One banana and one apple
+    Given the price of a "banana" is 40c
+    And the price of an "apple" is 25c
+    When I checkout 1 "banana"
+    And I checkout 1 "apple"
+    Then the total price is 65c
