@@ -8,23 +8,24 @@ import org.junit.Assert;
 
 public class CashWithdrawalSteps {
     class Account {
-        private int balance = 0;
+        private Money balance = new Money();
 
-        public void deposit(int amount) {
-            balance += amount;
+        public void deposit(Money amount) {
+            balance = balance.add(amount);
         }
 
-        public int getBalance() {
+        public Money getBalance() {
             return balance;
         }
     }
 
-    @Given("I have deposited ${int} in my account")
-    public void i_have_deposited_$_in_my_account(Integer amount) {
+    @Given("I have deposited \\$(\\d+)\\.(\\d+) in my account")
+    public void i_have_deposited_$_in_my_account(int dollars, int cents) {
         Account myAccount = new Account();
+        Money amount = new Money(dollars, cents);
         myAccount.deposit(amount);
 
-        Assert.assertEquals("Incorrect account balance - ", amount.longValue(), myAccount.getBalance());
+        Assert.assertEquals("Incorrect account balance - ", amount, myAccount.getBalance());
     }
 
     @When("I request ${int}")
