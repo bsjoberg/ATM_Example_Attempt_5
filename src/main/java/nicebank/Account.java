@@ -1,4 +1,4 @@
-package fun;
+package nicebank;
 
 public class Account {
     private Money balance = new Money();

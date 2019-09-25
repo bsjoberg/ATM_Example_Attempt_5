@@ -1,9 +1,10 @@
-package fun;
+package nicebank;
 
 import io.cucumber.core.api.TypeRegistry;
 import io.cucumber.core.api.TypeRegistryConfigurer;
 import io.cucumber.cucumberexpressions.ParameterType;
 import io.cucumber.cucumberexpressions.Transformer;
+import nicebank.Money;
 
 import java.util.Locale;
 
