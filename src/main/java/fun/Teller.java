@@ -1,6 +1,13 @@
 package fun;
 
 public class Teller {
-    public void withdrawFrom(Account myAccount, Integer dollars) {
+    private CashSlot cashSlot;
+
+    public Teller(CashSlot cashSlot) {
+        this.cashSlot = cashSlot;
+    }
+
+    public void withdrawFrom(Account account, int dollars) {
+        cashSlot.dispense(dollars);
     }
 }

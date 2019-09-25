@@ -9,24 +9,27 @@ import org.junit.Assert;
 public class CashWithdrawalSteps {
 
     private Account myAccount;
+    private KnowsMyAccount helper;
+
+    public CashWithdrawalSteps() {
+        helper = new KnowsMyAccount();
+    }
 
     @Given("I have deposited {money} in my account")
     public void i_have_deposited_$_in_my_account(Money amount) {
-        myAccount = new Account();
-        myAccount.deposit(amount);
+        helper.getMyAccount().deposit(amount);
 
-        Assert.assertEquals("Incorrect account balance - ", amount, myAccount.getBalance());
+        Assert.assertEquals("Incorrect account balance - ", amount, helper.getMyAccount().getBalance());
     }
 
     @When("I request ${int}")
     public void i_request_$(Integer dollars) {
-        Teller teller = new Teller();
-        teller.withdrawFrom(myAccount, dollars);
+        Teller teller = new Teller(helper.getCashSlot());
+        teller.withdrawFrom(helper.getMyAccount(), dollars);
     }
 
     @Then("${int} should be dispensed")
-    public void $_should_be_dispensed(Integer int1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void $_should_be_dispensed(Integer dollars) throws Throwable {
+        Assert.assertEquals("Incorrect dispensed amount -", dollars, helper.getCashSlot().getContents());
     }
 }
