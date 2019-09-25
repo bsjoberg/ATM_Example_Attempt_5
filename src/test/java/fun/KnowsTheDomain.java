@@ -1,6 +1,6 @@
 package fun;
 
-public class KnowsMyAccount {
+public class KnowsTheDomain {
     private Account myAccount;
     private CashSlot cashSlot;
 

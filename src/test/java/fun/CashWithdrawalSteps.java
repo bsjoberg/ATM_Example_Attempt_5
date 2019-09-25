@@ -1,6 +1,5 @@
 package fun;
 
-import cucumber.api.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,10 +8,10 @@ import org.junit.Assert;
 public class CashWithdrawalSteps {
 
     private Account myAccount;
-    private KnowsMyAccount helper;
+    private KnowsTheDomain helper;
 
     public CashWithdrawalSteps() {
-        helper = new KnowsMyAccount();
+        helper = new KnowsTheDomain();
     }
 
     @Given("I have deposited {money} in my account")
