@@ -7,30 +7,21 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class CashWithdrawalSteps {
-    class Account {
-        private Money balance = new Money();
 
-        public void deposit(Money amount) {
-            balance = balance.add(amount);
-        }
-
-        public Money getBalance() {
-            return balance;
-        }
-    }
+    private Account myAccount;
 
     @Given("I have deposited {money} in my account")
     public void i_have_deposited_$_in_my_account(Money amount) {
-        Account myAccount = new Account();
+        myAccount = new Account();
         myAccount.deposit(amount);
 
         Assert.assertEquals("Incorrect account balance - ", amount, myAccount.getBalance());
     }
 
     @When("I request ${int}")
-    public void i_request_$(Integer int1) throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+    public void i_request_$(Integer dollars) {
+        Teller teller = new Teller();
+        teller.withdrawFrom(myAccount, dollars);
     }
 
     @Then("${int} should be dispensed")
