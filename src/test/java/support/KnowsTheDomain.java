@@ -1,4 +1,4 @@
-package nicebank;
+package support;
 
 import nicebank.Account;
 import nicebank.CashSlot;
