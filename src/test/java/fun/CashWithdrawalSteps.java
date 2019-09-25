@@ -19,10 +19,9 @@ public class CashWithdrawalSteps {
         }
     }
 
-    @Given("I have deposited \\$(\\d+)\\.(\\d+) in my account")
-    public void i_have_deposited_$_in_my_account(int dollars, int cents) {
+    @Given("I have deposited {money} in my account")
+    public void i_have_deposited_$_in_my_account(Money amount) {
         Account myAccount = new Account();
-        Money amount = new Money(dollars, cents);
         myAccount.deposit(amount);
 
         Assert.assertEquals("Incorrect account balance - ", amount, myAccount.getBalance());
