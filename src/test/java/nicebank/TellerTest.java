@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class TellerUnit {
+public class TellerTest {
     @Test
     public void test_withdraw_money_from_account() {
         Account account = new Account();
