@@ -1,8 +1,7 @@
 package nicebank;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import org.junit.Assert;
 import support.KnowsTheDomain;
 
@@ -18,5 +17,10 @@ public class AccountSteps {
         helper.getMyAccount().deposit(amount);
 
         Assert.assertEquals("Incorrect account balance - ", amount, helper.getMyAccount().getBalance());
+    }
+
+    @And("​the balance of my account should be {money}")
+    public void the_balance_of_my_account_should_be(Money expectedAmount) {
+        Assert.assertEquals("Incorrect account balance - ", expectedAmount, helper.getMyAccount().getBalance());
     }
 }
