@@ -12,11 +12,8 @@ public class TellerTest {
         account.deposit(new Money("$100.00"));
         CashSlot cashSlotMock = mock(CashSlot.class);
         Teller teller = new Teller(cashSlotMock);
-        try {
-            teller.withdrawFrom(account, 20);
-        } catch (InsufficientFundsException e) {
-            e.printStackTrace();
-        }
+
+        Assert.assertTrue(teller.withdrawFrom(account, 20));
         Assert.assertEquals(new Money("$80.00"), account.getBalance());
     }
 
@@ -26,11 +23,8 @@ public class TellerTest {
         account.deposit(new Money("$50.00"));
         CashSlot cashSlotMock = mock(CashSlot.class);
         Teller teller = new Teller(cashSlotMock);
-        try {
-            teller.withdrawFrom(account, 100);
-        } catch (InsufficientFundsException ise) {
-            Assert.assertEquals("Insufficient Funds for this Withdrawal Attempt", ise.getMessage());
-        }
+
+        Assert.assertFalse(teller.withdrawFrom(account, 100));
         Assert.assertEquals(new Money("$50.00"), account.getBalance());
     }
 }

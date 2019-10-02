@@ -9,12 +9,16 @@ public class Teller {
         this.cashSlot = cashSlot;
     }
 
-    public void withdrawFrom(Account account, int dollars) throws InsufficientFundsException {
+    public boolean withdrawFrom(Account account, int dollars) {
+        boolean successfulWithdrawal = false;
+
         if (account.getBalance().dollars() >= dollars) {
             account.withdraw(dollars);
             cashSlot.dispense(dollars);
+            successfulWithdrawal = true;
         }
         else
-            throw new InsufficientFundsException();
+            successfulWithdrawal = false;
+        return successfulWithdrawal;
     }
 }

@@ -13,10 +13,7 @@ public class TellerSteps {
     @When("I request ${int}")
     public void i_request_$(Integer dollars) {
         Teller teller = new Teller(helper.getCashSlot());
-        try {
-            teller.withdrawFrom(helper.getMyAccount(), dollars);
-        } catch (InsufficientFundsException e) {
-            e.printStackTrace();
-        }
+
+        teller.withdrawFrom(helper.getMyAccount(), dollars);
     }
 }
