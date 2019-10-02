@@ -1,11 +1,14 @@
 package support;
 
 import nicebank.Account;
+import nicebank.AutomatedTeller;
 import nicebank.CashSlot;
+import nicebank.Teller;
 
 public class KnowsTheDomain {
     private Account myAccount;
     private CashSlot cashSlot;
+    private Teller teller;
 
     public Account getMyAccount() {
         if (myAccount == null) {
@@ -21,5 +24,13 @@ public class KnowsTheDomain {
         }
 
         return cashSlot;
+    }
+
+    public Teller getTeller() {
+        if (teller == null) {
+            teller = new AutomatedTeller(getCashSlot());
+        }
+
+        return teller;
     }
 }
