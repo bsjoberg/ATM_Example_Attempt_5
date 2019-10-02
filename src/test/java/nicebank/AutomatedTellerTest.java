@@ -5,13 +5,13 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 
-public class TellerTest {
+public class AutomatedTellerTest {
     @Test
     public void test_debit_money_from_account() {
         Account account = new Account();
         account.credit(new Money("$100.00"));
         CashSlot cashSlotMock = mock(CashSlot.class);
-        Teller teller = new Teller(cashSlotMock);
+        AutomatedTeller teller = new AutomatedTeller(cashSlotMock);
 
         Assert.assertTrue(teller.debitFrom(account, 20));
         Assert.assertEquals(new Money("$80.00"), account.getBalance());
@@ -22,7 +22,7 @@ public class TellerTest {
         Account account = new Account();
         account.credit(new Money("$50.00"));
         CashSlot cashSlotMock = mock(CashSlot.class);
-        Teller teller = new Teller(cashSlotMock);
+        AutomatedTeller teller = new AutomatedTeller(cashSlotMock);
 
         Assert.assertFalse(teller.debitFrom(account, 100));
         Assert.assertEquals(new Money("$50.00"), account.getBalance());
