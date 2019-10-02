@@ -13,7 +13,7 @@ public class TellerTest {
         CashSlot cashSlotMock = mock(CashSlot.class);
         Teller teller = new Teller(cashSlotMock);
 
-        Assert.assertTrue(teller.debit(account, 20));
+        Assert.assertTrue(teller.debitFrom(account, 20));
         Assert.assertEquals(new Money("$80.00"), account.getBalance());
     }
 
@@ -24,7 +24,7 @@ public class TellerTest {
         CashSlot cashSlotMock = mock(CashSlot.class);
         Teller teller = new Teller(cashSlotMock);
 
-        Assert.assertFalse(teller.debit(account, 100));
+        Assert.assertFalse(teller.debitFrom(account, 100));
         Assert.assertEquals(new Money("$50.00"), account.getBalance());
     }
 }

@@ -12,11 +12,9 @@ public class AccountSteps {
         this.helper = helper;
     }
 
-    @Given("I have credited {money} in my account")
-    public void i_have_credited_$_in_my_account(Money amount) {
+    @Given("my account has been credited {money}")
+    public void my_account_has_been_credited(Money amount) {
         helper.getMyAccount().credit(amount);
-
-        Assert.assertEquals("Incorrect account balance - ", amount, helper.getMyAccount().getBalance());
     }
 
     @And("​the balance of my account should be {money}")

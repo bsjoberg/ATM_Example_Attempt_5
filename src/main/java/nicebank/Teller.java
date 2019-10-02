@@ -9,16 +9,16 @@ public class Teller {
         this.cashSlot = cashSlot;
     }
 
-    public boolean debit(Account account, int dollars) {
-        boolean successfulWithdrawal = false;
+    public boolean debitFrom(Account account, int dollars) {
+        boolean successfulDebit = false;
 
         if (account.getBalance().dollars() >= dollars) {
             account.debit(dollars);
             cashSlot.dispense(dollars);
-            successfulWithdrawal = true;
+            successfulDebit = true;
         }
         else
-            successfulWithdrawal = false;
-        return successfulWithdrawal;
+            successfulDebit = false;
+        return successfulDebit;
     }
 }
