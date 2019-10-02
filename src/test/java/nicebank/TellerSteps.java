@@ -14,6 +14,6 @@ public class TellerSteps {
     public void i_request_$(Integer dollars) {
         Teller teller = new Teller(helper.getCashSlot());
 
-        teller.withdrawFrom(helper.getMyAccount(), dollars);
+        teller.debit(helper.getMyAccount(), dollars);
     }
 }

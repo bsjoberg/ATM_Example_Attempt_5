@@ -9,11 +9,11 @@ public class Teller {
         this.cashSlot = cashSlot;
     }
 
-    public boolean withdrawFrom(Account account, int dollars) {
+    public boolean debit(Account account, int dollars) {
         boolean successfulWithdrawal = false;
 
         if (account.getBalance().dollars() >= dollars) {
-            account.withdraw(dollars);
+            account.debit(dollars);
             cashSlot.dispense(dollars);
             successfulWithdrawal = true;
         }
