@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: maven:3-jdk-11
-
       - image: circleci/postgres:11.5-alpine-ram
 
     working_directory: ~/repo
@@ -12,7 +11,6 @@ jobs:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: -Xmx3200m
       TEST_DATABASE_URL: postgresql://postgres@localhost/circle_test
-      #POSTGRES_USER: postgres
 
     steps:
       - checkout
@@ -71,6 +69,7 @@ jobs:
   test:
     docker:
       - image: maven:3-jdk-11
+      - image: circleci/postgres:11.5-alpine-ram
 
     working_directory: ~/repo
 
