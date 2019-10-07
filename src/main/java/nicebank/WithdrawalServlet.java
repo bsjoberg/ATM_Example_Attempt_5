@@ -1,9 +1,9 @@
 /***
  * Excerpted from "The Cucumber for Java Book",
  * published by The Pragmatic Bookshelf.
- * Copyrights apply to this code. It may not be used to create training material,
+ * Copyrights apply to this code. It may not be used to create training material, 
  * courses, books, articles, and the like. Contact us if you are in doubt.
- * We make no guarantees that this code is fit for any purpose.
+ * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
  ***/
 package nicebank;
@@ -14,19 +14,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AtmServlet extends HttpServlet
+public class WithdrawalServlet extends HttpServlet
 {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    private CashSlot cashSlot;
+    private Account account;
+
+    public WithdrawalServlet(CashSlot cashSlot, Account account) {
+        this.cashSlot = cashSlot;
+        this.account = account;
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        Teller teller = new AutomatedTeller(cashSlot);
+        int amount = Integer.parseInt(request.getParameter("amount"));
+        teller.debitFrom(account, amount);
+
         response.setContentType("text/html");
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().println(
                 "<html><head><title>ATM</title></head>" +
-                        "<body><form action=\"/withdraw\" method=\"post\">" +
-                        "<label for=\"amount\">Amount</label>" +
-                        "<input type=\"text\" id=\"amount\" name=\"amount\">" +
-                        "<button type=\"submit\" id=\"withdraw\">Withdraw</button>" +
-                        "</form></body></html>");
+                        "<body>Please take your $" + amount + "</body></html>");
     }
 }

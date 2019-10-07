@@ -8,13 +8,37 @@
  ***/
 package support;
 
+import hooks.ServerHooks;
 import nicebank.Account;
 import nicebank.Teller;
+import org.openqa.selenium.By;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+
 
 class AtmUserInterface implements Teller {
+    private RemoteWebDriver webDriver;
+    private KnowsTheDomain helper;
+
+    public AtmUserInterface() throws MalformedURLException {
+        this.webDriver = new FirefoxDriver(new FirefoxOptions());
+        //this.webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub/"), new FirefoxOptions());
+    }
 
     @Override
     public boolean debitFrom(Account account, int dollars) {
+        try {
+            webDriver.get("http://localhost:" + ServerHooks.PORT);
+            webDriver.findElement(By.id("amount"))
+                    .sendKeys(String.valueOf(dollars));
+            webDriver.findElement(By.id("withdraw")).click();
+        }
+        finally {
+            webDriver.close();
+        }
         return false;
     }
 }

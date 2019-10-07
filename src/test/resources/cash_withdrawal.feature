@@ -1,6 +1,6 @@
 Feature: Cash Withdrawal
 
-  Scenario: Successful withdrawal from an account in credit
+  Scenario: Successful withdrawal from an account with sufficient credit
     Given my account has been credited $100.00
     When I request $20
     Then $20 should be dispensed
