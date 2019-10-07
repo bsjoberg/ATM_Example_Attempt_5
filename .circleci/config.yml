@@ -47,6 +47,7 @@ jobs:
             mvn dependency:go-offline
 
       # Setup firefox and webdriver
+      - run: firefox --version
       - run: apt-get -y install firefox
       - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.25.0/geckodriver-v0.25.0-linux64.tar.gz
       - run: tar xzf geckodriver-v0.25.0-linux64.tar.gz
