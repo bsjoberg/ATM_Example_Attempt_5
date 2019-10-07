@@ -48,7 +48,7 @@ jobs:
 
       # Setup firefox and webdriver
       #- run: firefox --version
-      - run: apt-get install libpango1.0-0
+      - run: apt-get -y install libpango1.0-0
       - run: apt-get -y install firefox
       - run: firefox --version
       - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.25.0/geckodriver-v0.25.0-linux64.tar.gz
