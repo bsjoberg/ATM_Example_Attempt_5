@@ -21,6 +21,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      # Setup the database
       - run: apt-get install wget ca-certificates
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
       - run: sh -c 'echo "deb [trusted=yes] http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
@@ -44,6 +45,12 @@ jobs:
           name: Get dependencies for Maven project
           command: |
             mvn dependency:go-offline
+
+      # Setup firefox and webdriver
+      - run: apt-get -y install firefox
+      - run: wget https://github.com/mozilla/geckodriver/releases/download/v0.25.0/geckodriver-v0.25.0-linux64.tar.gz
+      - run: tar xzf geckodriver-v0.25.0-linux64.tar.gz
+      - run: mv geckodriver /usr/bin/geckodriver
 
       - save_cache:
           paths:
