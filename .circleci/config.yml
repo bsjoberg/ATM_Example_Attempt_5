@@ -22,7 +22,7 @@ jobs:
             - v1-dependencies-
 
       - run: apt-get update
-      - run: apt-get install postgresql-client-11.5
+      - run: apt-get install postgresql-client-11
       - run: whoami
       - run: |
           psql \
