@@ -66,6 +66,10 @@ jobs:
           command: java -jar selenium-server-standalone-3.9.1.jar -log test-reports/selenium.log
           background: true
 
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn verify sonar:sonar -Dsonar.projectKey=bsjoberg_ATM_Example_Attempt_5 -Dsonar.organization=bsjoberg -Dsonar.host.url=https://sonarcloud.io
+
   test:
     docker:
       - image: maven:3-jdk-11
@@ -105,5 +109,6 @@ workflows:
   version: 2
   pipeline:
     jobs:
-      - build
+      - build:
+          context: SonarCloud
       - test
