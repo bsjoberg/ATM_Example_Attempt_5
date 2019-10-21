@@ -1,4 +1,7 @@
 version: 2.1
+orbs:
+  SonarCloud: sonarsource/sonarcloud@1.0.0
+
 jobs:
   build:
     docker:
