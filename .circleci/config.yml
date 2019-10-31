@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  SonarCloud: sonarsource/sonarcloud@1.0.0
+  #SonarCloud: sonarsource/sonarcloud@1.0.0
 
 jobs:
   build:
@@ -113,5 +113,5 @@ workflows:
   pipeline:
     jobs:
       - build:
-          context: SonarCloud
+          #context: SonarCloud
       - test
