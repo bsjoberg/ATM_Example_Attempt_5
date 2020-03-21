@@ -98,6 +98,7 @@ jobs:
 
       # Check which versions of apt-get, gpg, curl, sha256sum, tar, jq
       - run: which apt-get
+      - run: which gpg
 
       # Setup the database
       - run: apt-get install wget ca-certificates
