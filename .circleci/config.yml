@@ -96,6 +96,9 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      # Check which versions of apt-get, gpg, curl, sha256sum, tar, jq
+      - run: which apt-get
+
       # Setup the database
       - run: apt-get install wget ca-certificates
       - run: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
