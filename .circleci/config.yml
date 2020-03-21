@@ -105,7 +105,7 @@ jobs:
 
       # Install jq
       - run: apt-get update
-      - run: apt-get install jq
+      - run: apt-get install -f jq
       - run: which jq
 
       # Setup the database
