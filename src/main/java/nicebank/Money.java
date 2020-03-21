@@ -1,11 +1,11 @@
-/***
- * Excerpted from "The Cucumber for Java Book",
- * published by The Pragmatic Bookshelf.
- * Copyrights apply to this code. It may not be used to create training material,
- * courses, books, articles, and the like. Contact us if you are in doubt.
- * We make no guarantees that this code is fit for any purpose.
- * Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
- ***/
+/*
+  Excerpted from "The Cucumber for Java Book",
+  published by The Pragmatic Bookshelf.
+  Copyrights apply to this code. It may not be used to create training material,
+  courses, books, articles, and the like. Contact us if you are in doubt.
+  We make no guarantees that this code is fit for any purpose.
+  Visit http://www.pragmaticprogrammer.com/titles/srjcuc for more book information.
+ */
 package nicebank;
 
 import java.util.regex.Matcher;
@@ -15,17 +15,17 @@ public final class Money {
     private final int dollars;
     private final int cents;
 
-    public Money() {
+    Money() {
         this.dollars = 0;
         this.cents = 0;
     }
 
-    public Money(int dollars, int cents) {
+    Money(int dollars, int cents) {
         this.dollars = dollars;
         this.cents = cents;
     }
 
-    public Money(String amount) {
+    Money(String amount) {
         Pattern pattern = Pattern.compile("^[^\\d]*([\\d]+)\\.([\\d][\\d])$");
         Matcher matcher = pattern.matcher(amount);
 
@@ -34,19 +34,19 @@ public final class Money {
         this.cents = Integer.parseInt(matcher.group(2));
     }
 
-    public int dollars() {
+    int dollars() {
         return dollars;
     }
 
-    public int cents() {
+    int cents() {
         return cents;
     }
 
-    public Money add(Money amount){
+    Money add(Money amount) {
         int newCents = cents + amount.cents();
         int newDollars = dollars + amount.dollars();
 
-        if (newCents >= 100){
+        while (newCents >= 100) {
             newCents -= 100;
             newDollars++;
         }
@@ -54,11 +54,11 @@ public final class Money {
         return new Money(newDollars, newCents);
     }
 
-    public Money minus(Money amount){
+    Money minus(Money amount) {
         int newCents = cents - amount.cents();
         int newDollars = dollars - amount.dollars();
 
-        if (newCents < 0){
+        if (newCents < 0) {
             newCents += 100;
             newDollars--;
         }
@@ -67,11 +67,11 @@ public final class Money {
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         boolean equal = false;
 
-        if (other instanceof Money){
-            Money otherMoney = (Money)other;
+        if (other instanceof Money) {
+            Money otherMoney = (Money) other;
             equal = (this.dollars() == otherMoney.dollars()
                     && this.cents() == otherMoney.cents());
         }

@@ -1,4 +1,7 @@
-version: 2
+version: 2.1
+#orbs:
+  #SonarCloud: sonarsource/sonarcloud@1.0.0
+
 jobs:
   build:
     docker:
@@ -76,6 +79,10 @@ jobs:
           command: java -jar selenium-server-standalone-3.9.1.jar -log test-reports/selenium.log
           background: true
 
+      #- run:
+      #    name: Analyze on SonarCloud
+      #    command: mvn verify sonar:sonar -Dsonar.projectKey=bsjoberg_ATM_Example_Attempt_5 -Dsonar.organization=bsjoberg -Dsonar.host.url=https://sonarcloud.io
+
   test:
     docker:
       - image: maven:3-jdk-11
@@ -116,4 +123,5 @@ workflows:
   pipeline:
     jobs:
       - build
+          #context: SonarCloud
       - test
