@@ -41,49 +41,9 @@ parameters:
       full list of releases, see the following:
       https://archive.mozilla.org/pub/firefox/releases/
     type: string
-  geckodriver-install-dir:
-    default: /usr/local/bin
-    description: |
-      Directory in which to install Geckodriver
-    type: string
-  geckodriver-version:
-    default: latest
-    description: >
-      Version of Geckodriver to install, defaults to latest release. To install
-      an older release, specify a full semantic version tag, e.g., `v0.23.0`.
-      For a list of releases, and a Firefox/Geckodriver version compatibility
-      table, see the following links:
-      https://github.com/mozilla/geckodriver/releases
-      https://firefox-source-docs.mozilla.org/testing/geckodriver/Support.html
-    type: string
-  install-chrome:
-    default: true
-    description: >
-      Install Google Chrome? Note: only the latest stable release can be
-      installed, as Google does not maintain a public archive of previous
-      releases.
-    type: boolean
-  install-chromedriver:
-    default: true
-    description: >
-      Install Chromedriver? Note: requires Google Chrome. A Chromedriver version
-      will be dynamically selected based on the installed version of Chrome; for
-      details, see the following information:
-      https://sites.google.com/a/chromium.org/chromedriver/downloads/version-selection
-    type: boolean
   install-firefox:
     default: true
     description: Install Firefox?
-    type: boolean
-  install-geckodriver:
-    default: true
-    description: Install Geckodriver?
-    type: boolean
-  replace-existing-chrome:
-    default: false
-    description: >
-      If there is an existing installation of Google Chrome, replace it with the
-      latest stable release
     type: boolean
 
 jobs:
@@ -141,25 +101,6 @@ jobs:
                 debug: <<parameters.debug>>
                 install-dir: <<parameters.firefox-install-dir>>
                 version: <<parameters.firefox-version>>
-      - when:
-          condition: <<parameters.install-geckodriver>>
-          steps:
-            - install-geckodriver:
-                debug: <<parameters.debug>>
-                install-dir: <<parameters.geckodriver-install-dir>>
-                version: <<parameters.geckodriver-version>>
-      - when:
-          condition: <<parameters.install-chrome>>
-          steps:
-            - install-chrome:
-                debug: <<parameters.debug>>
-                replace-existing: <<parameters.replace-existing-chrome>>
-      - when:
-          condition: <<parameters.install-chromedriver>>
-          steps:
-            - install-chromedriver:
-                debug: <<parameters.debug>>
-                install-dir: <<parameters.chromedriver-install-dir>>
 
       - save_cache:
           paths:
