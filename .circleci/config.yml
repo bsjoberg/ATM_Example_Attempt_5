@@ -102,6 +102,9 @@ jobs:
       - run: which curl
       - run: which sha256sum
       - run: which tar
+
+      # Install jq
+      - run: apt-get install jq
       - run: which jq
 
       # Setup the database
