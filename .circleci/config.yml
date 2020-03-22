@@ -167,6 +167,8 @@ jobs:
     steps:
       - checkout
 
+      - run: which firefox
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
