@@ -167,101 +167,101 @@ jobs:
       - checkout
 
       # Install firefox.
-    - run:
-        command: >
-          if [[ $EUID == 0 ]]; then export SUDO=""; else export SUDO="sudo"; fi
+      - run:
+          command: >
+            if [[ $EUID == 0 ]]; then export SUDO=""; else export SUDO="sudo"; fi
 
 
-          if [[ <<parameters.firefox-version>> == "latest" ]]; then
-            # extract latest version from mozilla product details API
-            $SUDO apt-get install -y jq
+            if [[ <<parameters.firefox-version>> == "latest" ]]; then
+              # extract latest version from mozilla product details API
+              $SUDO apt-get install -y jq
 
-            FIREFOX_VERSION_STRING=$(curl \
-              https://product-details.mozilla.org/1.0/firefox_versions.json | \
-              jq '.LATEST_FIREFOX_VERSION')
+              FIREFOX_VERSION_STRING=$(curl \
+                https://product-details.mozilla.org/1.0/firefox_versions.json | \
+                jq '.LATEST_FIREFOX_VERSION')
 
-            # strip leading/trailing "
-            temp="${FIREFOX_VERSION_STRING%\"}"
-            FIREFOX_VERSION="${temp#\"}"
-          else
-            FIREFOX_VERSION=<<parameters.firefox-version>>
-          fi
-
-
-          FIREFOX_URL_BASE="https://archive.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION"
+              # strip leading/trailing "
+              temp="${FIREFOX_VERSION_STRING%\"}"
+              FIREFOX_VERSION="${temp#\"}"
+            else
+              FIREFOX_VERSION=<<parameters.firefox-version>>
+            fi
 
 
-          # import public key
-
-          curl --silent --show-error --location --fail --retry 3
-          "$FIREFOX_URL_BASE/KEY" | gpg --import
+            FIREFOX_URL_BASE="https://archive.mozilla.org/pub/firefox/releases/$FIREFOX_VERSION"
 
 
-          # download shasum256
+            # import public key
 
-          curl -O --silent --show-error --location --fail --retry 3
-          "$FIREFOX_URL_BASE/SHA256SUMS.asc"
-
-          curl -O --silent --show-error --location --fail --retry 3
-          "$FIREFOX_URL_BASE/SHA256SUMS"
+            curl --silent --show-error --location --fail --retry 3
+            "$FIREFOX_URL_BASE/KEY" | gpg --import
 
 
-          # verify shasum256
+            # download shasum256
 
-          gpg --verify SHA256SUMS.asc SHA256SUMS
+            curl -O --silent --show-error --location --fail --retry 3
+            "$FIREFOX_URL_BASE/SHA256SUMS.asc"
 
-          rm -rf SHA256SUMS.asc
-
-
-          # download firefox
-
-          FIREFOX_FILE="firefox-$FIREFOX_VERSION.tar.bz2"
-
-          FIREFOX_FILE_LOCATION="linux-x86_64/en-US/$FIREFOX_FILE"
-
-          FIREFOX_FILE_NAME="linux-x86_64-en-US-$FIREFOX_FILE"
+            curl -O --silent --show-error --location --fail --retry 3
+            "$FIREFOX_URL_BASE/SHA256SUMS"
 
 
-          curl --silent --show-error --location --fail --retry 3 \
-            --output "$FIREFOX_FILE_NAME.asc" \
-            "$FIREFOX_URL_BASE/linux-x86_64/en-US/$FIREFOX_FILE.asc"
+            # verify shasum256
 
-          curl --silent --show-error --location --fail --retry 3 \
-            --output "$FIREFOX_FILE_NAME" \
-            "$FIREFOX_URL_BASE/linux-x86_64/en-US/$FIREFOX_FILE"
+            gpg --verify SHA256SUMS.asc SHA256SUMS
 
-          # verify download archive
-
-          gpg --verify "$FIREFOX_FILE_NAME.asc" "$FIREFOX_FILE_NAME"
-
-          rm -rf "$FIREFOX_FILE_NAME.asc"
+            rm -rf SHA256SUMS.asc
 
 
-          sed -i 's%linux-x86_64/en-US/firefox%linux-x86_64-en-US-firefox%g'
-          SHA256SUMS
+            # download firefox
 
-          grep "$FIREFOX_FILE_NAME" SHA256SUMS | sha256sum -c -
+            FIREFOX_FILE="firefox-$FIREFOX_VERSION.tar.bz2"
 
-          rm -rf SHA256SUMS
+            FIREFOX_FILE_LOCATION="linux-x86_64/en-US/$FIREFOX_FILE"
 
-
-          # setup firefox installation
-
-          $SUDO tar -xvjf "$FIREFOX_FILE_NAME" -C /opt
-
-          rm -rf "$FIREFOX_FILE_NAME"
+            FIREFOX_FILE_NAME="linux-x86_64-en-US-$FIREFOX_FILE"
 
 
-          $SUDO ln -s /opt/firefox/firefox /usr/local/bin/firefox
+            curl --silent --show-error --location --fail --retry 3 \
+              --output "$FIREFOX_FILE_NAME.asc" \
+              "$FIREFOX_URL_BASE/linux-x86_64/en-US/$FIREFOX_FILE.asc"
 
-          $SUDO apt-get install -y libgtk3.0-cil-dev libasound2 libasound2
-          libdbus-glib-1-2 libdbus-1-3
+            curl --silent --show-error --location --fail --retry 3 \
+              --output "$FIREFOX_FILE_NAME" \
+              "$FIREFOX_URL_BASE/linux-x86_64/en-US/$FIREFOX_FILE"
+
+            # verify download archive
+
+            gpg --verify "$FIREFOX_FILE_NAME.asc" "$FIREFOX_FILE_NAME"
+
+            rm -rf "$FIREFOX_FILE_NAME.asc"
 
 
-          # verify version
+            sed -i 's%linux-x86_64/en-US/firefox%linux-x86_64-en-US-firefox%g'
+            SHA256SUMS
 
-          firefox --version
-        name: Install Firefox
+            grep "$FIREFOX_FILE_NAME" SHA256SUMS | sha256sum -c -
+
+            rm -rf SHA256SUMS
+
+
+            # setup firefox installation
+
+            $SUDO tar -xvjf "$FIREFOX_FILE_NAME" -C /opt
+
+            rm -rf "$FIREFOX_FILE_NAME"
+
+
+            $SUDO ln -s /opt/firefox/firefox /usr/local/bin/firefox
+
+            $SUDO apt-get install -y libgtk3.0-cil-dev libasound2 libasound2
+            libdbus-glib-1-2 libdbus-1-3
+
+
+            # verify version
+
+            firefox --version
+          name: Install Firefox
 
       - run: which firefox
 
