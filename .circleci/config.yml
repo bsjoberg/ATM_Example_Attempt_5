@@ -156,8 +156,6 @@ jobs:
     docker:
       - image: maven:3-jdk-11
       - image: circleci/postgres:11.5-alpine-ram
-      - image: jlesage/firefox
-      - image: selenium/standalone-firefox
 
     working_directory: ~/repo
 
@@ -167,8 +165,6 @@ jobs:
 
     steps:
       - checkout
-
-      - run: which firefox
 
       - restore_cache:
           keys:
@@ -208,7 +204,4 @@ workflows:
   pipeline:
     jobs:
       - build
-          #context: SonarCloud
-      - test:
-          requires:
-            - build
+      - test
