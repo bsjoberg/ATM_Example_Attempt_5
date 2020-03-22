@@ -2,6 +2,13 @@ version: 2.1
 #orbs:
   #SonarCloud: sonarsource/sonarcloud@1.0.0
 
+parameters:
+  debug:
+    default: false
+    description: |
+      Extra output for orb developers
+    type: boolean
+
 jobs:
   build:
     docker:
