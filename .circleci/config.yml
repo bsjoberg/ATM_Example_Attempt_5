@@ -156,6 +156,7 @@ jobs:
     docker:
       - image: maven:3-jdk-11
       - image: circleci/postgres:11.5-alpine-ram
+      - image: jlesage/firefox
       - image: selenium/standalone-firefox
 
     working_directory: ~/repo
