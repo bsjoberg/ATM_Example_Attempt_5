@@ -77,7 +77,7 @@ parameters:
 jobs:
   build:
     docker:
-      - image: maven:3-jdk-11
+      - image: maven:3-jdk-11-browsers
       - image: circleci/postgres:11.5-alpine-ram
 
     working_directory: ~/repo
