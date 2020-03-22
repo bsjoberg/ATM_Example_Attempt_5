@@ -169,7 +169,7 @@ jobs:
       # Install firefox.
       - run: apt-get update
       - run: apt-get install libpango1.0-0 -y
-      - run: apt-get install firefox -y
+      - run: apt-get install firefox
       - run: ln -sf /usr/lib/firefox/firefox /usr/bin/firefox
 
       - run: which firefox
