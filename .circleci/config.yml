@@ -166,6 +166,14 @@ jobs:
     steps:
       - checkout
 
+      # Install firefox.
+      - run: apt-get update
+      - run: apt-get install libpango1.0-0
+      - run: apt-get install firefox
+      - run: ln -sf /usr/lib/firefox/firefox /usr/bin/firefox
+
+      - run: which firefox
+
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "pom.xml" }}
@@ -175,14 +183,14 @@ jobs:
 
       - run: mkdir test-reports
 
-#      - run:
-#          name: Download Selenium
-#          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.9.1.jar
-#
-#      - run:
-#          name: Start Selenium
-#          command: java -jar selenium-server-standalone-3.9.1.jar -log test-reports/selenium.log
-#          background: true
+      - run:
+          name: Download Selenium
+          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.9.1.jar
+
+      - run:
+          name: Start Selenium
+          command: java -jar selenium-server-standalone-3.9.1.jar -log test-reports/selenium.log
+          background: true
 
       - run:
           name: Get dependencies for Maven project
