@@ -148,17 +148,6 @@ jobs:
           command: |
             mvn compile
 
-      - run: mkdir test-reports
-
-      - run:
-          name: Download Selenium
-          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.9.1.jar
-
-      - run:
-          name: Start Selenium
-          command: java -jar selenium-server-standalone-3.9.1.jar -log test-reports/selenium.log
-          background: true
-
       #- run:
       #    name: Analyze on SonarCloud
       #    command: mvn verify sonar:sonar -Dsonar.projectKey=bsjoberg_ATM_Example_Attempt_5 -Dsonar.organization=bsjoberg -Dsonar.host.url=https://sonarcloud.io
@@ -182,6 +171,18 @@ jobs:
             - v1-dependencies-{{ checksum "pom.xml" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
+
+
+      - run: mkdir test-reports
+
+      - run:
+          name: Download Selenium
+          command: curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.9.1.jar
+
+      - run:
+          name: Start Selenium
+          command: java -jar selenium-server-standalone-3.9.1.jar -log test-reports/selenium.log
+          background: true
 
       - run:
           name: Get dependencies for Maven project
