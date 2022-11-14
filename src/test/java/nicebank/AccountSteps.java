@@ -6,7 +6,7 @@ import org.junit.Assert;
 import support.KnowsTheDomain;
 
 public class AccountSteps {
-    private KnowsTheDomain helper;
+    private final KnowsTheDomain helper;
 
     public AccountSteps(KnowsTheDomain helper) {
         this.helper = helper;
