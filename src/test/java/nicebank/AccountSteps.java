@@ -17,7 +17,7 @@ public class AccountSteps {
         helper.getMyAccount().credit(amount);
     }
 
-    @And("​the balance of my account should be {money}")
+    @And("the balance of my account should be {money}")
     public void the_balance_of_my_account_should_be(Money expectedAmount) {
         Assert.assertEquals("Incorrect account balance - ", expectedAmount, helper.getMyAccount().getBalance());
     }
