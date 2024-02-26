@@ -1,7 +1,5 @@
 package nicebank;
 
-import io.cucumber.java.sl.In;
-
 public class AutomatedTeller implements Teller {
     private CashSlot cashSlot;
 
