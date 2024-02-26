@@ -1,5 +1,6 @@
 package nicebank;
 
+import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import org.junit.Assert;
@@ -10,6 +11,11 @@ public class AccountSteps {
 
     public AccountSteps(KnowsTheDomain helper) {
         this.helper = helper;
+    }
+
+    @ParameterType(".*")
+    public Money money(String money) {
+    	return new Money(money);
     }
 
     @Given("my account has been credited {money}")
